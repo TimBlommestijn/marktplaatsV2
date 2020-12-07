@@ -1974,10 +1974,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: Object,
@@ -46962,11 +46958,6 @@ var render = function() {
                   attrs: { href: "#" }
                 },
                 [
-                  _c("img", {
-                    staticClass: "block rounded-full",
-                    attrs: { alt: "Placeholder" }
-                  }),
-                  _vm._v(" "),
                   _c("p", { staticClass: "ml-2 text-sm" }, [
                     _vm._v(
                       " " +
@@ -69534,8 +69525,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/timmy/Documents/prive/blog/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/timmy/Documents/prive/blog/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! /home/timmy/Documents/prive/marktplaatsV2/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/timmy/Documents/prive/marktplaatsV2/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })
