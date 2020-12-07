@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -44,8 +47,8 @@ class ProductController extends Controller
                 $theName = pathinfo($ogName, PATHINFO_FILENAME);
                 $ext = $image->getClientOriginalExtension();
                 $storeName = $theName.'_'.time().'.'.$ext;
-                $image->storeAs('/product_images/', $storeName, 'public');
-                $path = $image->storeAs('/product_images/', $storeName, 'public');
+                $image->storeAs('/product_images', $storeName, 'public');
+                $path = $image->storeAs('/product_images', $storeName, 'public');
                 error_log("oi ".$storeName);
                 // make a record
                 $imageRecord = new ProductImage();
@@ -62,7 +65,7 @@ class ProductController extends Controller
     //function that returns all the products of a person
     public function collection(){
         if(Auth::user()){
-            $products = DB::table('products')->where('uuid', '=' , Auth::user()->id)->get();
+            $products = Product::where('uuid', '=' , Auth::user()->id)->get();
             $images = ProductImage::all();
             return Inertia::render('Dashboard', ['products'=> $products , 'images' => $images]);
         }
@@ -102,7 +105,7 @@ class ProductController extends Controller
             $product->product_description = $request->product_description;
             $product->product_price = $request->product_price;         
             $product->save();
-            return redirect('dashboard');
+            return Inertia::render('Dashboard');
         }else {
             return redirect('/');
         }
@@ -115,7 +118,13 @@ class ProductController extends Controller
             try {
                 //code...
                 $product->destroy($product->id);
-                return redirect('/dashboard');
+                $images = ProductImage::where('productId', '=', $id)->get();
+                // dd($images);
+                foreach($images as $image){
+                    File::delete(public_path().'/storage/'.$image->filePath);
+                }
+                $image->destroy();
+                return Inertia::route('Dashboard');
             } catch (\Throwable $th) {
                 //throw $th;
             }

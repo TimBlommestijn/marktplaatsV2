@@ -26,10 +26,6 @@
           class="flex items-center no-underline hover:underline text-black"
           href="#"
         >
-          <img
-            alt="Placeholder"
-            class="block rounded-full"
-          />
           <p class="ml-2 text-sm"> {{ product.author ? product.author : 'Uw product' }} </p>
         </a>
         <p>€{{ product.product_price }}</p>
