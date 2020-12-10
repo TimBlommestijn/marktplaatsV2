@@ -41,7 +41,6 @@ class ProductController extends Controller
 
             for($i = 0; $i< $request->input('imagesCount'); $i++){
                 $image = $request->file('images_'.$i);
-                // dd($request->file('images_'.$i));
                 // store image
                 $ogName = $image->getClientOriginalName();                
                 $theName = pathinfo($ogName, PATHINFO_FILENAME);
@@ -74,7 +73,8 @@ class ProductController extends Controller
     //function that returns a specific product
     public function show($id){
         $product = new Product();
-        return Inertia::render('Article', ['product'=> $product->find($id)]);
+        $images = ProductImage::where('productId', '=', $id)->get();
+        return Inertia::render('Article', ['product'=> $product->find($id), "images"=> $images]);
     }
 
     //function that returns a form to edit a product

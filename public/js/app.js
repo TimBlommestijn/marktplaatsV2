@@ -4708,21 +4708,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
- // import ArticleCard from '@/Components/ArticleCard'
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     Welcome: _Jetstream_Welcome__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__["default"] // ArticleCard
-
+    Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
-    product: Object
+    product: Object,
+    images: Array
+  },
+  data: function data() {
+    return {
+      imagesLoad: []
+    };
   },
   created: function created() {
     console.log(this.product);
+
+    for (var i = 0; i < this.images.length; i++) {
+      var e = this.images[i];
+      console.log(e);
+      if (e.ProductId == this.product.id) this.imagesLoad.push(e.filePath);
+    }
   }
 });
 
@@ -5879,7 +5889,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".selectedEffect[data-v-9d4635aa]:hover{\n  border-color: black;\n  border-style: solid;\n  border-width: 0.25rem;\n}\n", ""]);
+exports.push([module.i, ".selectedEffect[data-v-9d4635aa]:hover{\n  border-color: black;\n  border-style: solid;\n  border-width: 0.25rem;\n}\r\n", ""]);
 
 // exports
 
@@ -46891,7 +46901,8 @@ var render = function() {
       _c(
         "article",
         {
-          staticClass: "overflow-hidden rounded-lg shadow-lg selectedEffect",
+          staticClass:
+            "overflow-hidden rounded-lg shadow-lg selectedEffect border-4     border-solid border-white",
           on: {
             click: function($event) {
               return _vm.route("show-product", _vm.product.id)
@@ -52101,7 +52112,7 @@ var render = function() {
                         staticClass: "block h-auto w-full md:w-3/4 lg:w-6/12",
                         attrs: {
                           alt: "Placeholder",
-                          src: "https://picsum.photos/600/400/?random"
+                          src: "/storage/" + _vm.imagesLoad[0]
                         }
                       })
                     ]
@@ -69525,8 +69536,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/timmy/Documents/prive/marktplaatsV2/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/timmy/Documents/prive/marktplaatsV2/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\tim\Documents\laravel\marktplaatsV2\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\tim\Documents\laravel\marktplaatsV2\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

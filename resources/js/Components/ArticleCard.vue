@@ -1,7 +1,7 @@
 <template>
   <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3 " >
     <!-- Article -->
-    <article class="overflow-hidden rounded-lg shadow-lg selectedEffect" @click="route('show-product', product.id)">
+    <article class="overflow-hidden rounded-lg shadow-lg selectedEffect border-4     border-solid border-white" @click="route('show-product', product.id)">
         <a :href="route('show-product', product.id)">
             <img
             alt="Placeholder"
