@@ -15,7 +15,7 @@
                             <img
                             alt="Placeholder"
                             class="block h-auto w-full md:w-3/4 lg:w-6/12"
-                            src="https://picsum.photos/600/400/?random"
+                            :src="'/storage/'+imagesLoad[0]"
                         /> 
                         </div>
                         <div class="w-full pt-4 flex flex-col justify-center">
@@ -40,20 +40,29 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     import Welcome from '@/Jetstream/Welcome'
-    // import ArticleCard from '@/Components/ArticleCard'
     import Button from '@/Jetstream/Button'
     export default {
         components: {
             AppLayout,
             Welcome,
-            Button
-            // ArticleCard
+            Button,
         },
         props:{
             product: Object,
+            images: Array,
+        },
+        data: ()=> {
+            return{
+                imagesLoad: []
+            }
         },
         created(){
             console.log(this.product);
+            for (let i = 0; i < this.images.length; i++) {
+                const e = this.images[i];
+                console.log(e);
+                if( e.ProductId == this.product.id )  this.imagesLoad.push(e.filePath)  
+            }
         }
     }
 </script>
