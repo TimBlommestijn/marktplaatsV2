@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class ProductController extends Controller
 {
@@ -47,7 +49,13 @@ class ProductController extends Controller
                 $ext = $image->getClientOriginalExtension();
                 $storeName = $theName.'_'.time().'.'.$ext;
                 $image->storeAs('/product_images', $storeName, 'public');
+                $image->storeAs('/product_images', "Thumbnail_".$storeName, 'public');
                 $path = $image->storeAs('/product_images', $storeName, 'public');
+                // dd(public_path());
+                $img = Image::make(public_path().'/storage/product_images/Thumbnail_'.$storeName)->resize(null, 500 , function($constraint){
+                    $constraint->aspectRatio();
+                });
+                $img->save();
                 error_log("oi ".$storeName);
                 // make a record
                 $imageRecord = new ProductImage();
@@ -65,7 +73,17 @@ class ProductController extends Controller
     public function collection(){
         if(Auth::user()){
             $products = Product::where('uuid', '=' , Auth::user()->id)->get();
-            $images = ProductImage::all();
+            $images = [];
+            if(!Auth::user()->admin){
+                foreach($products as $product){
+                    // dd($product->id);
+                    $image = ProductImage::where("ProductId", "=", $product->id)->first();
+                    array_push($images, $image);
+                }
+            }else if(Auth::user()->admin){
+                $products = Product::all();
+                $images = ProductImage::all();
+            }
             return Inertia::render('Dashboard', ['products'=> $products , 'images' => $images]);
         }
     }

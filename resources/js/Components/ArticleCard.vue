@@ -1,11 +1,11 @@
 <template>
   <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3 " >
     <!-- Article -->
-    <article class="overflow-hidden rounded-lg shadow-lg selectedEffect border-4     border-solid border-white" @click="route('show-product', product.id)">
-        <a :href="route('show-product', product.id)">
+    <article class="overflow-hidden rounded-lg shadow-lg selectedEffect border-4 border-solid border-white" @click="route('show-product', product.id)">
+        <a class="w-full h-80 flex justify-center" :href="route('show-product', product.id)">
             <img
-            alt="Placeholder"
-            class="block h-auto w-full"
+            alt="image placeholder"
+            class="h-full w-auto my-auto"
             :src="'/storage/'+imagesLoad[0]"
             
             /> 
@@ -53,13 +53,17 @@ export default {
         }
     },
     created(){
-        console.log(this.product);
     },
     mounted(){
       for (let i = 0; i < this.images.length; i++) {
         const e = this.images[i];
-        console.log(e);
-        if( e.ProductId == this.product.id )  this.imagesLoad.push(e.filePath)  
+        if( e.ProductId == this.product.id ){
+          let arrayofpain = e.filePath.split("/")
+          arrayofpain[1] = "Thumbnail_"+arrayofpain[1];
+          console.log("arrayofpain: "+arrayofpain[1]);
+          console.log(arrayofpain.join("/"));
+          this.imagesLoad.push(arrayofpain.join("/"))
+        }  
       }
     },
     methods:{
