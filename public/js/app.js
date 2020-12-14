@@ -1987,14 +1987,18 @@ __webpack_require__.r(__webpack_exports__);
       imagesLoad: []
     };
   },
-  created: function created() {
-    console.log(this.product);
-  },
+  created: function created() {},
   mounted: function mounted() {
     for (var i = 0; i < this.images.length; i++) {
       var e = this.images[i];
-      console.log(e);
-      if (e.ProductId == this.product.id) this.imagesLoad.push(e.filePath);
+
+      if (e.ProductId == this.product.id) {
+        var arrayofpain = e.filePath.split("/");
+        arrayofpain[1] = "Thumbnail_" + arrayofpain[1];
+        console.log("arrayofpain: " + arrayofpain[1]);
+        console.log(arrayofpain.join("/"));
+        this.imagesLoad.push(arrayofpain.join("/"));
+      }
     }
   },
   methods: {
@@ -5889,7 +5893,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".selectedEffect[data-v-9d4635aa]:hover{\n  border-color: black;\n  border-style: solid;\n  border-width: 0.25rem;\n}\r\n", ""]);
+exports.push([module.i, ".selectedEffect[data-v-9d4635aa]:hover{\n  border-color: black;\n  border-style: solid;\n  border-width: 0.25rem;\n}\n", ""]);
 
 // exports
 
@@ -46902,7 +46906,7 @@ var render = function() {
         "article",
         {
           staticClass:
-            "overflow-hidden rounded-lg shadow-lg selectedEffect border-4     border-solid border-white",
+            "overflow-hidden rounded-lg shadow-lg selectedEffect border-4 border-solid border-white",
           on: {
             click: function($event) {
               return _vm.route("show-product", _vm.product.id)
@@ -46912,12 +46916,15 @@ var render = function() {
         [
           _c(
             "a",
-            { attrs: { href: _vm.route("show-product", _vm.product.id) } },
+            {
+              staticClass: "w-full h-80 flex justify-center",
+              attrs: { href: _vm.route("show-product", _vm.product.id) }
+            },
             [
               _c("img", {
-                staticClass: "block h-auto w-full",
+                staticClass: "h-full w-auto my-auto",
                 attrs: {
-                  alt: "Placeholder",
+                  alt: "image placeholder",
                   src: "/storage/" + _vm.imagesLoad[0]
                 }
               })
@@ -69536,8 +69543,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\tim\Documents\laravel\marktplaatsV2\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\tim\Documents\laravel\marktplaatsV2\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! /home/timmy/Documents/prive/github/marktplaatsV2/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/timmy/Documents/prive/github/marktplaatsV2/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })
