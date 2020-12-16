@@ -3140,8 +3140,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -4916,8 +4914,6 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     products: Array,
     images: Array
-  },
-  created: function created() {// Inertia.visit('/dashboard');
   }
 });
 
