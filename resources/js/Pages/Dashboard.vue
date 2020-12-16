@@ -34,5 +34,8 @@
             products: Array,
             images: Array
         },
+        created(){
+            // Inertia.visit('/dashboard');
+        }
     }
 </script>

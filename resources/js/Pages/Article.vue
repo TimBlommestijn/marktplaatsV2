@@ -57,10 +57,8 @@
             }
         },
         created(){
-            console.log(this.product);
             for (let i = 0; i < this.images.length; i++) {
                 const e = this.images[i];
-                console.log(e);
                 if( e.ProductId == this.product.id )  this.imagesLoad.push(e.filePath)  
             }
         }

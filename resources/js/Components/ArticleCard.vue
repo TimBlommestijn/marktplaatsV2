@@ -60,8 +60,6 @@ export default {
         if( e.ProductId == this.product.id ){
           let arrayofpain = e.filePath.split("/")
           arrayofpain[1] = "Thumbnail_"+arrayofpain[1];
-          console.log("arrayofpain: "+arrayofpain[1]);
-          console.log(arrayofpain.join("/"));
           this.imagesLoad.push(arrayofpain.join("/"))
         }  
       }

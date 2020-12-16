@@ -95,7 +95,6 @@ export default {
     };
   },
   created() {
-    console.log(this.products);
   },
   methods: {
     createProduct() {
@@ -116,7 +115,6 @@ export default {
     changeHandler(e){
       // this.productForm.image = e.target.files;
       this.productForm.imagesCount = e.target.files.length
-      // console.log(e.target.files);
       for (let i = 0; i < this.productForm.imagesCount; i++) {
         const element = e.target.files[i];
         this.formData.push(element)

@@ -82,7 +82,6 @@ export default {
     product: Object
   },  
   created() {
-    console.log(this.product);
   },
   methods: {
     createProduct() {

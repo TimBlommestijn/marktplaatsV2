@@ -20,9 +20,11 @@
                             </jet-nav-link>
                         </div>
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <jet-nav-link :href="route('create-product')">
-                                Add Product <i class="fas ml-2 fa-plus-circle"></i>
-                            </jet-nav-link>
+                            <!-- <a :href="route('product-create')" >  -->
+                                <!-- Add Product  -->
+                                <inertia-link class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out" :href="route('product-create')">
+                                    Add Product <i class="fas ml-2 fa-plus-circle"></i>
+                                </inertia-link>                           
                         </div>
 
                     </div>
@@ -53,17 +55,16 @@
                                         Manage Account
                                     </div>
 
-                                    <jet-dropdown-link :href="route('dashboard')">
-                                    Dashboard
-                                    </jet-dropdown-link>
-                    
-                                    <jet-dropdown-link :href="route('profile.show')">
-                                        Profile
-                                    </jet-dropdown-link>
+                                    <!-- <a href="/dashboard" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"> 
+                                        Dashboard
+                                    </a>      -->
+                                    <inertia-link  :href="route('dashboard')" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                        Dashboard
+                                    </inertia-link>
 
-                                    <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.jetstream.hasApiFeatures">
-                                        API Tokens
-                                    </jet-dropdown-link>
+                                    <inertia-link  :href="route('profile.show')" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                        Profile
+                                    </inertia-link>
 
                                     <div class="border-t border-gray-100"></div>
 
@@ -114,12 +115,12 @@
                         </div>
                     </div>
                     <div class="hidden sm:flex sm:items-center sm:ml-6" v-if="!$page.user">
-                        <jet-nav-link  jet-nav-link :href="route('login')">
-                            login
-                        </jet-nav-link>
-                        <jet-nav-link :href="route('register')">
+                        <inertia-link :href="route('login')" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"> 
+                            Login
+                        </inertia-link>     
+                        <inertia-link :href="route('register')" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             Register
-                        </jet-nav-link>
+                        </inertia-link>
 
                     </div>
 
@@ -138,19 +139,15 @@
             <!-- Responsive Navigation Menu -->
             <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                        Dashboard
-                    </jet-responsive-nav-link>
+                    <inertia-link :href="route('dashboard')" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Dashboard</inertia-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('home')" :active="route().current('home')">
-                        Home
-                    </jet-responsive-nav-link>
+                    <inertia-link :href="route('home')" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Home</inertia-link>
                 </div>
                 <div class="pt-2 pb-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('create-product')" :active="route().current('create-product')">
-                        Add Product <i class="fas ml-2 fa-plus-circle"></i>
-                    </jet-responsive-nav-link>
+                <inertia-link :href="route('product-create')" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+                    Add Product <i class="fas ml-2 fa-plus-circle"></i>
+                </inertia-link>
                 </div>
                 <!-- Responsive Settings Options -->
                 <div v-if="$page.user" class="pt-4 pb-1 border-t border-gray-200">
