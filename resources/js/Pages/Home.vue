@@ -36,7 +36,6 @@
             images: Array
         },
         created(){
-            console.log(this.products);
         },
         computed:{
 

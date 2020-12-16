@@ -1995,8 +1995,6 @@ __webpack_require__.r(__webpack_exports__);
       if (e.ProductId == this.product.id) {
         var arrayofpain = e.filePath.split("/");
         arrayofpain[1] = "Thumbnail_" + arrayofpain[1];
-        console.log("arrayofpain: " + arrayofpain[1]);
-        console.log(arrayofpain.join("/"));
         this.imagesLoad.push(arrayofpain.join("/"));
       }
     }
@@ -2938,9 +2936,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_DropdownLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/DropdownLink */ "./resources/js/Jetstream/DropdownLink.vue");
 /* harmony import */ var _Jetstream_NavLink__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/NavLink */ "./resources/js/Jetstream/NavLink.vue");
 /* harmony import */ var _Jetstream_ResponsiveNavLink__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/ResponsiveNavLink */ "./resources/js/Jetstream/ResponsiveNavLink.vue");
-//
-//
-//
 //
 //
 //
@@ -4730,11 +4725,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    console.log(this.product);
-
     for (var i = 0; i < this.images.length; i++) {
       var e = this.images[i];
-      console.log(e);
       if (e.ProductId == this.product.id) this.imagesLoad.push(e.filePath);
     }
   }
@@ -4847,9 +4839,7 @@ __webpack_require__.r(__webpack_exports__);
       formData: []
     };
   },
-  created: function created() {
-    console.log(this.products);
-  },
+  created: function created() {},
   methods: {
     createProduct: function createProduct() {
       var formData = new FormData();
@@ -4869,7 +4859,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeHandler: function changeHandler(e) {
       // this.productForm.image = e.target.files;
-      this.productForm.imagesCount = e.target.files.length; // console.log(e.target.files);
+      this.productForm.imagesCount = e.target.files.length;
 
       for (var i = 0; i < this.productForm.imagesCount; i++) {
         var element = e.target.files[i];
@@ -4926,6 +4916,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     products: Array,
     images: Array
+  },
+  created: function created() {// Inertia.visit('/dashboard');
   }
 });
 
@@ -5023,9 +5015,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     product: Object
   },
-  created: function created() {
-    console.log(this.product);
-  },
+  created: function created() {},
   methods: {
     createProduct: function createProduct() {
       this.product._method = 'PUT';
@@ -5086,9 +5076,7 @@ __webpack_require__.r(__webpack_exports__);
     products: Array,
     images: Array
   },
-  created: function created() {
-    console.log(this.products);
-  },
+  created: function created() {},
   computed: {}
 });
 
@@ -48671,10 +48659,14 @@ var render = function() {
                 { staticClass: "hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" },
                 [
                   _c(
-                    "jet-nav-link",
-                    { attrs: { href: _vm.route("create-product") } },
+                    "inertia-link",
+                    {
+                      staticClass:
+                        "inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out",
+                      attrs: { href: _vm.route("product-create") }
+                    },
                     [
-                      _vm._v("\n                            Add Product "),
+                      _vm._v("\n                                Add Product "),
                       _c("i", { staticClass: "fas ml-2 fa-plus-circle" })
                     ]
                   )
@@ -48781,20 +48773,24 @@ var render = function() {
                                     ),
                                     _vm._v(" "),
                                     _c(
-                                      "jet-dropdown-link",
+                                      "inertia-link",
                                       {
+                                        staticClass:
+                                          "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
                                         attrs: { href: _vm.route("dashboard") }
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                Dashboard\n                                "
+                                          "\n                                    Dashboard\n                                "
                                         )
                                       ]
                                     ),
                                     _vm._v(" "),
                                     _c(
-                                      "jet-dropdown-link",
+                                      "inertia-link",
                                       {
+                                        staticClass:
+                                          "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
                                         attrs: {
                                           href: _vm.route("profile.show")
                                         }
@@ -48805,24 +48801,6 @@ var render = function() {
                                         )
                                       ]
                                     ),
-                                    _vm._v(" "),
-                                    _vm.$page.jetstream.hasApiFeatures
-                                      ? _c(
-                                          "jet-dropdown-link",
-                                          {
-                                            attrs: {
-                                              href: _vm.route(
-                                                "api-tokens.index"
-                                              )
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                    API Tokens\n                                "
-                                            )
-                                          ]
-                                        )
-                                      : _vm._e(),
                                     _vm._v(" "),
                                     _c("div", {
                                       staticClass: "border-t border-gray-100"
@@ -49016,7 +48994,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            1247311405
+                            2960874240
                           )
                         })
                       ],
@@ -49032,20 +49010,26 @@ var render = function() {
                   { staticClass: "hidden sm:flex sm:items-center sm:ml-6" },
                   [
                     _c(
-                      "jet-nav-link",
+                      "inertia-link",
                       {
-                        attrs: { "jet-nav-link": "", href: _vm.route("login") }
+                        staticClass:
+                          "inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out",
+                        attrs: { href: _vm.route("login") }
                       },
                       [
                         _vm._v(
-                          "\n                        login\n                    "
+                          " \n                        Login\n                    "
                         )
                       ]
                     ),
                     _vm._v(" "),
                     _c(
-                      "jet-nav-link",
-                      { attrs: { href: _vm.route("register") } },
+                      "inertia-link",
+                      {
+                        staticClass:
+                          "inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out",
+                        attrs: { href: _vm.route("register") }
+                      },
                       [
                         _vm._v(
                           "\n                        Register\n                    "
@@ -49129,14 +49113,13 @@ var render = function() {
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
                 _c(
-                  "jet-responsive-nav-link",
+                  "inertia-link",
                   {
-                    attrs: {
-                      href: _vm.route("dashboard"),
-                      active: _vm.route().current("dashboard")
-                    }
+                    staticClass:
+                      "block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out",
+                    attrs: { href: _vm.route("dashboard") }
                   },
-                  [_vm._v("\n                    Dashboard\n                ")]
+                  [_vm._v("Dashboard")]
                 )
               ],
               1
@@ -49147,14 +49130,13 @@ var render = function() {
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
                 _c(
-                  "jet-responsive-nav-link",
+                  "inertia-link",
                   {
-                    attrs: {
-                      href: _vm.route("home"),
-                      active: _vm.route().current("home")
-                    }
+                    staticClass:
+                      "block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out",
+                    attrs: { href: _vm.route("home") }
                   },
-                  [_vm._v("\n                    Home\n                ")]
+                  [_vm._v("Home")]
                 )
               ],
               1
@@ -49165,15 +49147,14 @@ var render = function() {
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
                 _c(
-                  "jet-responsive-nav-link",
+                  "inertia-link",
                   {
-                    attrs: {
-                      href: _vm.route("create-product"),
-                      active: _vm.route().current("create-product")
-                    }
+                    staticClass:
+                      "block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out",
+                    attrs: { href: _vm.route("product-create") }
                   },
                   [
-                    _vm._v("\n                    Add Product "),
+                    _vm._v("\n                Add Product "),
                     _c("i", { staticClass: "fas ml-2 fa-plus-circle" })
                   ]
                 )

@@ -28,7 +28,10 @@ class ProductController extends Controller
 
     //function that returns a vue form 2 create an product
     public function create(){
-        return Inertia::render('CreateProduct');
+        if (Auth::user()) {
+            # code...
+            return Inertia::render('CreateProduct');
+        }
     }
 
     //function that stores a product in the database
@@ -64,35 +67,54 @@ class ProductController extends Controller
                 $imageRecord->save();
             }
             return redirect('dashboard');
-        }else{
-            return redirect('/login');
         }
     }
 
     //function that returns all the products of a person
-    public function collection(){
-        if(Auth::user()){
-            $products = Product::where('uuid', '=' , Auth::user()->id)->get();
-            $images = [];
-            if(!Auth::user()->admin){
-                foreach($products as $product){
-                    // dd($product->id);
-                    $image = ProductImage::where("ProductId", "=", $product->id)->first();
-                    array_push($images, $image);
-                }
-            }else if(Auth::user()->admin){
-                $products = Product::all();
-                $images = ProductImage::all();
+    public function dashboard(){
+        $products = Product::where('uuid', '=' , Auth::user()->id)->get();
+        $images = [];
+        if(!Auth::user()->admin){
+            foreach($products as $product){
+                // dd($product->id);
+                $image = ProductImage::where("ProductId", "=", $product->id)->first();
+                array_push($images, $image);
             }
-            return Inertia::render('Dashboard', ['products'=> $products , 'images' => $images]);
+        }else if(Auth::user()->admin){
+            $products = Product::all();
+            $images = ProductImage::all();
+        }
+        return Inertia::render('Dashboard', ['products'=> $products , 'images' => $images]);
+    }
+
+    public function collection(){
+        $products = Product::where('uuid', '=' , Auth::user()->id)->get();
+        $images = [];
+        if(!Auth::user()->admin){
+            foreach($products as $product){
+                // dd($product->id);
+                $image = ProductImage::where("ProductId", "=", $product->id)->first();
+                array_push($images, $image);
+            }
+            return json_encode([$images, $products]);
+        }else if(Auth::user()->admin){
+            $products = Product::all();
+            $images = ProductImage::all();
+            return json_encode([$images, $products]);
         }
     }
 
     //function that returns a specific product
     public function show($id){
-        $product = new Product();
+
+        $product = Product::find($id);
+
+        if(!$product){
+            abort(404);
+        }
+
         $images = ProductImage::where('productId', '=', $id)->get();
-        return Inertia::render('Article', ['product'=> $product->find($id), "images"=> $images]);
+        return Inertia::render('Article', ['product'=> $product, "images"=> $images]);
     }
 
     //function that returns a form to edit a product
@@ -103,8 +125,6 @@ class ProductController extends Controller
             return Inertia::render('EditProduct', [ 'product' => $product ]);
         }else if(Auth::user()->id == $product->uuid){
             return Inertia::render('EditProduct', [ 'product' => $product ]);
-        }else{
-            return redirect('/');
         }
     }
 
@@ -124,8 +144,6 @@ class ProductController extends Controller
             $product->product_price = $request->product_price;         
             $product->save();
             return Inertia::render('Dashboard');
-        }else {
-            return redirect('/');
         }
     }
 
@@ -140,11 +158,11 @@ class ProductController extends Controller
                 // dd($images);
                 foreach($images as $image){
                     File::delete(public_path().'/storage/'.$image->filePath);
+                    ProductImage::destroy($image->id);
                 }
-                $image->destroy();
-                return Inertia::route('Dashboard');
+                return redirect('/dashboard');
             } catch (\Throwable $th) {
-                //throw $th;
+                abort(500);
             }
         }
     }
