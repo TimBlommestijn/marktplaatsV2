@@ -8,15 +8,20 @@
 
     <div class="py-12">
       <div class=" sm:px-6 lg:px-8">
+        <h4
+          class="text-center text-xl bg-white overflow-hidden shadow-xl sm:rounded-lg my-3"
+        >
+          {{ author }}
+        </h4>
+
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <h4 class="text-center">Producten</h4>
           <div class="flex flex-wrap -mx-1 lg:mx-4">
             <ArticleCard
               :images="images"
               :product="product"
               v-for="product in products"
               :key="product.id"
-              :rights="0"
+              :rights="rights"
             />
           </div>
         </div>
@@ -38,9 +43,11 @@ export default {
   props: {
     products: Array,
     images: Array,
+    author: String,
+    rights: Number,
   },
   created() {
-    // console.log(t  his.products);
+    // console.log(this.products);
   },
   computed: {},
 };

@@ -14,8 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.2.4",
         "intervention/image": "^2.5",
-        "laravel/framework": "^8.9.0",
-        "laravel/jetstream": "^1.6",
+        "laravel/framework": "^8.12",
+        "laravel/jetstream": "^2.0",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "tightenco/ziggy": "^0.9.4"

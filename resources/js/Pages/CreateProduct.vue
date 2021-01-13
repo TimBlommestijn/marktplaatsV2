@@ -29,7 +29,9 @@
                 />
               </div>
               <div class="flex flex-col mt-8">
-                <label for="description" class="text-xl">Beschrijving product:</label>
+                <label for="description" class="text-xl"
+                  >Beschrijving product:</label
+                >
                 <textarea
                   required
                   v-model="productForm.description"
@@ -41,8 +43,17 @@
                 ></textarea>
               </div>
               <div class="flex flex-row mt-8">
-                  <label for="price" class="text-xl">Images:</label>
-                  <input required type="file" @change="changeHandler" class="form-control" id="file" name="product-image" placeholder="address" multiple>
+                <label for="price" class="text-xl">Images:</label>
+                <input
+                  required
+                  type="file"
+                  @change="changeHandler"
+                  class="form-control"
+                  id="file"
+                  name="product-image"
+                  placeholder="address"
+                  multiple
+                />
               </div>
               <div class="flex flex-row mt-8">
                 <label for="price" class="text-xl">price:</label>
@@ -95,31 +106,32 @@ export default {
     };
   },
   created() {
+    console.log(this.products);
   },
   methods: {
     createProduct() {
       let formData = new FormData();
       for (let i = 0; i < this.productForm.imagesCount; i++) {
         const e = this.formData[i];
-        formData.append('images_'+i, e)
+        formData.append("images_" + i, e);
       }
-      formData.set('name', this.productForm.name)
-      formData.set('description', this.productForm.description)
-      formData.set('price', this.productForm.price)
-      formData.set('imagesCount', this.productForm.imagesCount)
-      this.$inertia.post('/product', formData)
-        .then(()=>{
-            alert('waddup')
-        })
+      formData.set("name", this.productForm.name);
+      formData.set("description", this.productForm.description);
+      formData.set("price", this.productForm.price);
+      formData.set("imagesCount", this.productForm.imagesCount);
+      this.$inertia.post("/product", formData).then(() => {
+        alert("waddup");
+      });
     },
-    changeHandler(e){
+    changeHandler(e) {
       // this.productForm.image = e.target.files;
-      this.productForm.imagesCount = e.target.files.length
+      this.productForm.imagesCount = e.target.files.length;
+      // console.log(e.target.files);
       for (let i = 0; i < this.productForm.imagesCount; i++) {
         const element = e.target.files[i];
-        this.formData.push(element)
+        this.formData.push(element);
       }
-    }
+    },
   },
 };
 </script>

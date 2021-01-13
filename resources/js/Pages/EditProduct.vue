@@ -29,7 +29,9 @@
                 />
               </div>
               <div class="flex flex-col mt-8">
-                <label for="description" class="text-xl">Beschrijving product:</label>
+                <label for="description" class="text-xl"
+                  >Beschrijving product:</label
+                >
                 <textarea
                   required
                   v-model="product.product_description"
@@ -39,6 +41,41 @@
                   name="naam"
                   id="description"
                 ></textarea>
+                <div
+                  class="flex flex-col lg:flex-row md:flex-row py-4 justify-center"
+                >
+                  <div
+                    v-for="img in allImages"
+                    :key="img.id"
+                    class="mx-2 flex-col"
+                  >
+                    <img
+                      alt="Placeholder"
+                      class="w-full "
+                      :src="'/storage/' + img.filePath"
+                    />
+                    <div
+                      class="flex flex-row w-full text-center bg-red-600 hover:bg-black hover:text-white"
+                      @click="deleteImage(img.id)"
+                    >
+                      <a class="mx-auto ">delete</a>
+                    </div>
+                  </div>
+                  <div class="w-full h-max py-4 flex">
+                    <label
+                      for="file"
+                      class="far fa-plus-square m-auto text-4xl hover:text-blue-600"
+                    ></label>
+                    <input
+                      name="file"
+                      type="file"
+                      @change="saveImg"
+                      class="form-control hidden"
+                      id="file"
+                    />
+                    <!-- <i class="far fa-plus-square m-auto text-3xl"></i> -->
+                  </div>
+                </div>
               </div>
               <div class="flex flex-row mt-8">
                 <label for="price" class="text-xl">price:</label>
@@ -78,18 +115,59 @@ export default {
     AppLayout,
     Welcome,
   },
-  props:{
-    product: Object
-  },  
+  props: {
+    product: Object,
+    images: Array,
+  },
+  data() {
+    return {
+      added: false,
+      addedImages: [],
+      allImages: [],
+    };
+  },
   created() {
+    this.mergeImageArrays();
   },
   methods: {
+    mergeImageArrays() {
+      this.allImages = this.images.concat(this.addedImages);
+    },
+    saveImg(e) {
+      let formData = new FormData();
+      formData.append("image", e.target.files[0]);
+      axios
+        .post(`/product/image/save/${this.product.id}`, formData)
+        .then((response) => {
+          this.added = true;
+          this.allImages.push(response.data.img);
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    },
     createProduct() {
-      this.product._method = 'PUT'
-      this.$inertia.post('/product/'+this.product.id, this.product )
-      .then(()=>{
-        alert('waddup')
-      })
+      this.product._method = "PUT";
+      this.$inertia
+        .post("/product/" + this.product.id, this.product)
+        .then(() => {
+          alert("succes");
+        })
+        .catch((err) => {
+          console.error(err.message);
+        });
+    },
+    deleteImage(id) {
+      axios
+        .post(`/product/image/delete/${id}`)
+        .then((res) => {
+          this.allImages.forEach((element, index) => {
+            if (element.id == id) this.allImages.splice(index, 1);
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };

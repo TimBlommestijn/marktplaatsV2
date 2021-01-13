@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -19,24 +20,24 @@ use Intervention\Image\ImageManagerStatic as Image;
 class ProductController extends Controller
 {
     //function 2 get data for the homepage
-    public function index(){
+    public function index()
+    {
         $images = ProductImage::all();
         $products = DB::table('users')->join('products', 'users.id', 'products.uuid')
-        ->select('products.*', 'users.name as author')->get();
-        return Inertia::render('Home', ['products'=> $products->all(), 'images'=>$images]);
+            ->select('products.*', 'users.name as author')->get();
+        return Inertia::render('Home', ['products' => $products->all(), 'images' => $images]);
     }
 
     //function that returns a vue form 2 create an product
-    public function create(){
-        if (Auth::user()) {
-            # code...
-            return Inertia::render('CreateProduct');
-        }
+    public function create()
+    {
+        return Inertia::render('CreateProduct');
     }
 
     //function that stores a product in the database
-    public function store(Request $request){
-        if(Auth::user()){
+    public function store(Request $request)
+    {
+        if (Auth::user()) {
             $product = new Product();
             $product->product_name = $request->input('name');
             $product->product_description = $request->input('description');
@@ -44,22 +45,22 @@ class ProductController extends Controller
             $product->uuid = Auth::user()->id;
             $product->save();
 
-            for($i = 0; $i< $request->input('imagesCount'); $i++){
-                $image = $request->file('images_'.$i);
+            for ($i = 0; $i < $request->input('imagesCount'); $i++) {
+                $image = $request->file('images_' . $i);
                 // store image
-                $ogName = $image->getClientOriginalName();                
+                $ogName = $image->getClientOriginalName();
                 $theName = pathinfo($ogName, PATHINFO_FILENAME);
                 $ext = $image->getClientOriginalExtension();
-                $storeName = $theName.'_'.time().'.'.$ext;
+                $storeName = $theName . '_' . time() . '.' . $ext;
                 $image->storeAs('/product_images', $storeName, 'public');
-                $image->storeAs('/product_images', "Thumbnail_".$storeName, 'public');
+                $image->storeAs('/product_images', "Thumbnail_" . $storeName, 'public');
                 $path = $image->storeAs('/product_images', $storeName, 'public');
                 // dd(public_path());
-                $img = Image::make(public_path().'/storage/product_images/Thumbnail_'.$storeName)->resize(null, 500 , function($constraint){
+                $img = Image::make(public_path() . '/storage/product_images/Thumbnail_' . $storeName)->resize(null, 500, function ($constraint) {
                     $constraint->aspectRatio();
                 });
                 $img->save();
-                error_log("oi ".$storeName);
+                error_log("oi " . $storeName);
                 // make a record
                 $imageRecord = new ProductImage();
                 $imageRecord->filePath = $path;
@@ -67,69 +68,80 @@ class ProductController extends Controller
                 $imageRecord->save();
             }
             return redirect('dashboard');
+        } else {
+            return redirect('/login');
         }
+    }
+
+    // function that return the products posted be a specific user
+    public function profileProducts($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return abort(404, "user not found");
+        }
+
+        $products = Product::where('uuid', '=', $id)->get();
+        $images = [];
+
+        foreach ($products as $product) {
+            $image = ProductImage::where("ProductId", "=", $product->id)->first();
+            array_push($images, $image);
+        }
+        return Inertia::render('ProfileProducts', ['products' => $products, 'images' => $images, 'author' => $user->name, "rights" => $user->admin]);
     }
 
     //function that returns all the products of a person
-    public function dashboard(){
-        $products = Product::where('uuid', '=' , Auth::user()->id)->get();
-        $images = [];
-        if(!Auth::user()->admin){
-            foreach($products as $product){
-                // dd($product->id);
-                $image = ProductImage::where("ProductId", "=", $product->id)->first();
-                array_push($images, $image);
+    public function collection()
+    {
+        if (Auth::user()) {
+            $products = Product::where('uuid', '=', Auth::user()->id)->get();
+            $images = [];
+            if (!Auth::user()->admin) {
+                foreach ($products as $product) {
+                    // dd($product->id);
+                    $image = ProductImage::where("ProductId", "=", $product->id)->first();
+                    array_push($images, $image);
+                }
+            } else if (Auth::user()->admin) {
+                $products = Product::all();
+                $images = ProductImage::all();
             }
-        }else if(Auth::user()->admin){
-            $products = Product::all();
-            $images = ProductImage::all();
-        }
-        return Inertia::render('Dashboard', ['products'=> $products , 'images' => $images]);
-    }
-
-    public function collection(){
-        $products = Product::where('uuid', '=' , Auth::user()->id)->get();
-        $images = [];
-        if(!Auth::user()->admin){
-            foreach($products as $product){
-                // dd($product->id);
-                $image = ProductImage::where("ProductId", "=", $product->id)->first();
-                array_push($images, $image);
-            }
-            return json_encode([$images, $products]);
-        }else if(Auth::user()->admin){
-            $products = Product::all();
-            $images = ProductImage::all();
-            return json_encode([$images, $products]);
+            return Inertia::render('Dashboard', ['products' => $products, 'images' => $images]);
         }
     }
 
     //function that returns a specific product
-    public function show($id){
-
+    public function show($id)
+    {
         $product = Product::find($id);
 
-        if(!$product){
-            abort(404);
+        if (!$product) {
+            return abort(404, "Product not found");
         }
 
         $images = ProductImage::where('productId', '=', $id)->get();
-        return Inertia::render('Article', ['product'=> $product, "images"=> $images]);
+        return Inertia::render('Article', ['product' => $product, "images" => $images]);
     }
 
     //function that returns a form to edit a product
-    public function edit($id){
+    public function edit($id)
+    {
         $product = new Product();
         $product = $product->find($id);
-        if(Auth::user()->admin){
-            return Inertia::render('EditProduct', [ 'product' => $product ]);
-        }else if(Auth::user()->id == $product->uuid){
-            return Inertia::render('EditProduct', [ 'product' => $product ]);
+        $images = ProductImage::where('productId', '=', $id)->get();
+        if (Auth::user()->admin  || Auth::user()->id == $product->uuid) {
+            return Inertia::render('EditProduct', ['product' => $product, 'images' => $images]);
+        } else {
+            return redirect('/');
         }
     }
 
+
+
     //function that updates a product in the DB
-    public function update(Request $request ,$id){
+    public function update(Request $request, $id)
+    {
 
         Validator::make($request->all(), [
             'product_name' => ['required'],
@@ -137,34 +149,84 @@ class ProductController extends Controller
             'product_price' => ['required'],
         ])->validate();
 
-        if(Auth::user()->admin || Auth::user()->id == $request->uuid){
+        if (Auth::user()->admin || Auth::user()->id == $request->uuid) {
             $product = Product::find($id);
             $product->product_name = $request->product_name;
             $product->product_description = $request->product_description;
-            $product->product_price = $request->product_price;         
+            $product->product_price = $request->product_price;
             $product->save();
             return Inertia::render('Dashboard');
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function StoreImage(Request $request, $id)
+    {
+        try {
+            //code...
+            $image = $request->file('image');
+            $ogName = $image->getClientOriginalName();
+            $theName = pathinfo($ogName, PATHINFO_FILENAME);
+            $ext = $image->getClientOriginalExtension();
+            $storeName = $theName . '_' . time() . '.' . $ext;
+            $image->storeAs('/product_images', $storeName, 'public');
+            $image->storeAs('/product_images', "Thumbnail_" . $storeName, 'public');
+            $path = $image->storeAs('/product_images', $storeName, 'public');
+            $img = Image::make(public_path() . '/storage/product_images/Thumbnail_' . $storeName)->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save();
+            $imageRecord = new ProductImage();
+            $imageRecord->filePath = $path;
+            $imageRecord->productId = $id;
+            $imageRecord->save();
+
+            return response([
+                "succes" => true,
+                "message" => "image has been uploaded",
+                "img" => $imageRecord
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response([
+                "succes" => false,
+                "message" => "image has not been uploaded"
+            ], 500);
+        }
+    }
+
+    public function deleteImage($id)
+    {
+        $image = ProductImage::find($id);
+        if ($image) {
+            File::delete(public_path() . '/storage/' . $image->filePath);
+            ProductImage::destroy($id);
+            return response([
+                "succes" => true,
+                "message" => "image has been deleted"
+            ], 200);
         }
     }
 
     //function that deletes a product
-    public function destroy($id){
+    public function destroy($id)
+    {
         $product = Product::find($id);
-        if(Auth::user()->admin || Auth::user()->id == $product->uuid){
+        if (Auth::user()->admin || Auth::user()->id == $product->uuid) {
             try {
                 //code...
-                $product->destroy($product->id);
+                Product::destroy($product->id);
                 $images = ProductImage::where('productId', '=', $id)->get();
                 // dd($images);
-                foreach($images as $image){
-                    File::delete(public_path().'/storage/'.$image->filePath);
+                foreach ($images as $image) {
+                    File::delete(public_path() . '/storage/' . $image->filePath);
                     ProductImage::destroy($image->id);
                 }
                 return redirect('/dashboard');
             } catch (\Throwable $th) {
-                abort(500);
+                //throw $th;
             }
         }
     }
-
 }
