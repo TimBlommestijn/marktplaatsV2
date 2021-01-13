@@ -3355,6 +3355,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50023,7 +50080,9 @@ var render = function() {
                 { staticClass: "hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" },
                 [
                   _c("jet-nav-link", { attrs: { href: _vm.route("home") } }, [
-                    _vm._v("\n              Home\n            ")
+                    _vm._v(
+                      "\n                            Home\n                        "
+                    )
                   ])
                 ],
                 1
@@ -50033,16 +50092,20 @@ var render = function() {
                 "div",
                 { staticClass: "hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" },
                 [
-                  _vm.$page.user
-                    ? _c(
-                        "jet-nav-link",
-                        { attrs: { href: _vm.route("create-product") } },
-                        [
-                          _vm._v("\n              Verkoop uw Product "),
-                          _c("i", { staticClass: "fas ml-2 fa-plus-circle" })
-                        ]
-                      )
-                    : _vm._e()
+                  _c(
+                    "inertia-link",
+                    {
+                      staticClass:
+                        "inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out",
+                      attrs: { href: _vm.route("create-product") }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Add Product\n                            "
+                      ),
+                      _c("i", { staticClass: "fas ml-2 fa-plus-circle" })
+                    ]
+                  )
                 ],
                 1
               )
@@ -50140,54 +50203,40 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                  Manage Account\n                "
+                                          "\n                                    Manage Account\n                                "
                                         )
                                       ]
                                     ),
                                     _vm._v(" "),
                                     _c(
-                                      "jet-dropdown-link",
+                                      "inertia-link",
                                       {
+                                        staticClass:
+                                          "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
                                         attrs: { href: _vm.route("dashboard") }
                                       },
                                       [
                                         _vm._v(
-                                          "\n                  Dashboard\n                "
+                                          "\n                                    Dashboard\n                                "
                                         )
                                       ]
                                     ),
                                     _vm._v(" "),
                                     _c(
-                                      "jet-dropdown-link",
+                                      "inertia-link",
                                       {
+                                        staticClass:
+                                          "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out",
                                         attrs: {
                                           href: _vm.route("profile.show")
                                         }
                                       },
                                       [
                                         _vm._v(
-                                          "\n                  Profile\n                "
+                                          "\n                                    Profile\n                                "
                                         )
                                       ]
                                     ),
-                                    _vm._v(" "),
-                                    _vm.$page.jetstream.hasApiFeatures
-                                      ? _c(
-                                          "jet-dropdown-link",
-                                          {
-                                            attrs: {
-                                              href: _vm.route(
-                                                "api-tokens.index"
-                                              )
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                  API Tokens\n                "
-                                            )
-                                          ]
-                                        )
-                                      : _vm._e(),
                                     _vm._v(" "),
                                     _c("div", {
                                       staticClass: "border-t border-gray-100"
@@ -50203,7 +50252,7 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    Manage Team\n                  "
+                                                "\n                                        Manage Team\n                                    "
                                               )
                                             ]
                                           ),
@@ -50220,7 +50269,7 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    Team Settings\n                  "
+                                                "\n                                        Team Settings\n                                    "
                                               )
                                             ]
                                           ),
@@ -50237,7 +50286,7 @@ var render = function() {
                                                 },
                                                 [
                                                   _vm._v(
-                                                    "\n                    Create New Team\n                  "
+                                                    "\n                                        Create New Team\n                                    "
                                                   )
                                                 ]
                                               )
@@ -50256,7 +50305,7 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                    Switch Teams\n                  "
+                                                "\n                                        Switch Teams\n                                    "
                                               )
                                             ]
                                           ),
@@ -50328,9 +50377,11 @@ var render = function() {
                                                             _vm._v(" "),
                                                             _c("div", [
                                                               _vm._v(
-                                                                _vm._s(
-                                                                  team.name
-                                                                )
+                                                                "\n                                                        " +
+                                                                  _vm._s(
+                                                                    team.name
+                                                                  ) +
+                                                                  "\n                                                    "
                                                               )
                                                             ])
                                                           ]
@@ -50367,7 +50418,7 @@ var render = function() {
                                           { attrs: { as: "button" } },
                                           [
                                             _vm._v(
-                                              "\n                    Logout\n                  "
+                                              "\n                                        Logout\n                                    "
                                             )
                                           ]
                                         )
@@ -50381,7 +50432,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            3546490797
+                            3479421226
                           )
                         })
                       ],
@@ -50397,23 +50448,31 @@ var render = function() {
                   { staticClass: "hidden sm:flex sm:items-center sm:ml-6" },
                   [
                     _c(
-                      "jet-nav-link",
+                      "inertia-link",
                       {
                         staticClass:
                           "inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out",
-                        attrs: { href: _vm.route("login") }
+                        attrs: { href: "/login" }
                       },
-                      [_vm._v("\n            login\n          ")]
+                      [
+                        _vm._v(
+                          "\n                        Login\n                    "
+                        )
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
-                      "jet-nav-link",
+                      "inertia-link",
                       {
                         staticClass:
                           "inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out",
                         attrs: { href: _vm.route("register") }
                       },
-                      [_vm._v("\n            Register\n          ")]
+                      [
+                        _vm._v(
+                          "\n                        Register\n                    "
+                        )
+                      ]
                     )
                   ],
                   1
@@ -50492,14 +50551,13 @@ var render = function() {
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
                 _c(
-                  "jet-responsive-nav-link",
+                  "inertia-link",
                   {
-                    attrs: {
-                      href: _vm.route("dashboard"),
-                      active: _vm.route().current("dashboard")
-                    }
+                    staticClass:
+                      "block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out",
+                    attrs: { href: _vm.route("dashboard") }
                   },
-                  [_vm._v("\n          Dashboard\n        ")]
+                  [_vm._v("Dashboard")]
                 )
               ],
               1
@@ -50510,14 +50568,13 @@ var render = function() {
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
                 _c(
-                  "jet-responsive-nav-link",
+                  "inertia-link",
                   {
-                    attrs: {
-                      href: _vm.route("home"),
-                      active: _vm.route().current("home")
-                    }
+                    staticClass:
+                      "block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out",
+                    attrs: { href: _vm.route("home") }
                   },
-                  [_vm._v("\n          Home\n        ")]
+                  [_vm._v("Home")]
                 )
               ],
               1
@@ -50527,21 +50584,18 @@ var render = function() {
               "div",
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
-                _vm.$page.user
-                  ? _c(
-                      "jet-responsive-nav-link",
-                      {
-                        attrs: {
-                          href: _vm.route("create-product"),
-                          active: _vm.route().current("create-product")
-                        }
-                      },
-                      [
-                        _vm._v("\n          Add Product "),
-                        _c("i", { staticClass: "fas ml-2 fa-plus-circle" })
-                      ]
-                    )
-                  : _vm._e()
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass:
+                      "block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out",
+                    attrs: { href: _vm.route("create-product") }
+                  },
+                  [
+                    _vm._v("\n                    Add Product "),
+                    _c("i", { staticClass: "fas ml-2 fa-plus-circle" })
+                  ]
+                )
               ],
               1
             ),
@@ -50572,9 +50626,9 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n              " +
+                              "\n                            " +
                                 _vm._s(_vm.$page.user.name) +
-                                "\n            "
+                                "\n                        "
                             )
                           ]
                         ),
@@ -50584,9 +50638,9 @@ var render = function() {
                           { staticClass: "font-medium text-sm text-gray-500" },
                           [
                             _vm._v(
-                              "\n              " +
+                              "\n                            " +
                                 _vm._s(_vm.$page.user.email) +
-                                "\n            "
+                                "\n                        "
                             )
                           ]
                         )
@@ -50606,7 +50660,11 @@ var render = function() {
                                   active: _vm.route().current("profile.show")
                                 }
                               },
-                              [_vm._v("\n            Profile\n          ")]
+                              [
+                                _vm._v(
+                                  "\n                        Profile\n                    "
+                                )
+                              ]
                             ),
                             _vm._v(" "),
                             _vm.$page.jetstream.hasApiFeatures
@@ -50622,7 +50680,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n            API Tokens\n          "
+                                      "\n                        API Tokens\n                    "
                                     )
                                   ]
                                 )
@@ -50645,7 +50703,7 @@ var render = function() {
                                   { attrs: { as: "button" } },
                                   [
                                     _vm._v(
-                                      "\n              Logout\n            "
+                                      "\n                            Logout\n                        "
                                     )
                                   ]
                                 )
@@ -50666,19 +50724,19 @@ var render = function() {
                   },
                   [
                     _c(
-                      "jet-nav-link",
+                      "inertia-link",
                       {
                         staticClass: "p-2 w-full ml-2 text-md",
-                        attrs: { href: _vm.route("login") }
+                        attrs: { href: "/login", replace: "" }
                       },
                       [_vm._v("login")]
                     ),
                     _vm._v(" "),
                     _c(
-                      "jet-nav-link",
+                      "a",
                       {
                         staticClass: "p-2 w-full ml-2 text-md",
-                        attrs: { href: _vm.route("register") }
+                        attrs: { href: "/register" }
                       },
                       [_vm._v("register")]
                     )
@@ -73021,8 +73079,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/timmy/Documents/school/github/marktplaats-TimBlommestijn/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/timmy/Documents/school/github/marktplaats-TimBlommestijn/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! /home/timmy/Documents/prive/github/marktplaatsV2/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/timmy/Documents/prive/github/marktplaatsV2/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })

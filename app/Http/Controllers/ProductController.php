@@ -77,6 +77,7 @@ class ProductController extends Controller
     public function profileProducts($id)
     {
         $user = User::find($id);
+        $rights = 0;
         if (!$user) {
             return abort(404, "user not found");
         }
@@ -88,7 +89,10 @@ class ProductController extends Controller
             $image = ProductImage::where("ProductId", "=", $product->id)->first();
             array_push($images, $image);
         }
-        return Inertia::render('ProfileProducts', ['products' => $products, 'images' => $images, 'author' => $user->name, "rights" => $user->admin]);
+        if (Auth::user() && Auth::user()->admin == 1) {
+            $rights = 1;
+        }
+        return Inertia::render('ProfileProducts', ['products' => $products, 'images' => $images, 'author' => $user->name, "rights" => $rights]);
     }
 
     //function that returns all the products of a person
